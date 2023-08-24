@@ -4,6 +4,7 @@ import {
   BottomSheetModal,
   BottomSheetModalProvider,
   BottomSheetScrollView,
+  BottomSheetBackdrop,
 } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import List from "./List";
@@ -15,20 +16,34 @@ export default function App() {
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
   }, []);
+  const renderBackdrop = useCallback(
+    props => (
+      <BottomSheetBackdrop
+      {...props}
+        disappearsOnIndex={0}
+        appearsOnIndex={1}
+      />
+    ),
+    []
+  );
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <BottomSheetModalProvider>
         <View style={styles.container}>
           <Text style={{ padding: 20 }}>Selected value : {selectedValue}</Text>
           <Button
-            onPress={handlePresentModalPress}
+            onPress={() => {
+              handlePresentModalPress();
+            }}
             title="Open bottom sheet"
             color="black"
           />
+
           <BottomSheetModal
             ref={bottomSheetModalRef}
             index={1}
             snapPoints={["40%", "50%", "90%"]}
+            backdropComponent={renderBackdrop}
             // onChange={handleSheetChanges}
           >
             <TextInput
@@ -65,8 +80,8 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 25,
     paddingHorizontal: 10,
-    backgroundColor: "lightgray",
+    backgroundColor: "#e5e5e5",
     marginBottom: 10,
-    margin:20
+    margin: 20,
   },
 });

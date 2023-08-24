@@ -3,7 +3,7 @@ import RadioForm, {
   RadioButtonInput,
   RadioButtonLabel,
 } from "react-native-simple-radio-button";
-import { View, ScrollView, StyleSheet, TextInput } from "react-native";
+import { View, StyleSheet } from "react-native";
 
 let radio_props = [
   { label: "param1", value: 1 },
